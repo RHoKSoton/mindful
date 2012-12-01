@@ -1,0 +1,3 @@
+*.pyc
+*~
+mindful/local_settings.py
