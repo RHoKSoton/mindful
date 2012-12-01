@@ -32,7 +32,7 @@ class Genre(models.Model):
 class Song(models.Model):
 	title = models.CharField(max_length=100)
 	artist = models.CharField(max_length=60)
-	file_name = models.CharField(max_length=100)
+	#file_name = models.CharField(max_length=100)
 	length = models.IntegerField()	# in second
 	bpm = models.IntegerField()		# beats per minute
 	file = models.FileField(upload_to='mindfulapp/static/music')
