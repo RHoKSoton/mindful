@@ -5,11 +5,23 @@ class Patient(models.Model):
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=30)
 
+	image = models.ImageField(upload_to='patients')
+
 	added = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name
+
+	def delete(self, *args, **kwargs):
+		# You have to prepare what you need before delete the model
+		storage, path = self.image.storage, self.image.path
+		# Delete the model before the file
+		super(Patient, self).delete(*args, **kwargs)
+		# Delete the file after the model
+		storage.delete(path)
+
+	# TODO similar for update operation: old image has to be deleted
 
 class Genre(models.Model):
 	name = models.CharField(max_length=60)
