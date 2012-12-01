@@ -1,11 +1,11 @@
 def is_patient(request):
-  return request.session['patient'] != NULL
+	return 'patient' in request.session
 
 def is_carer(request):
-  return request.session['carer'] != NULL
+	return 'carer' in request.session
 
 def is_logged_in(request):
-  return request.session['loggedIn'] != NULL
+	return 'loggedIn' in request.session
 
 def all_logout(request):
   try:
