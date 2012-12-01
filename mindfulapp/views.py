@@ -14,7 +14,7 @@ def index(request):
 def landing(request):
 	if is_logged_in(request):
 		if is_user(request):
-			return redirect('user')
+			return redirect('user', request.session['user'].id)
 		else:
 			return HttpResponse('You are logged in as a carer')
 	else:
