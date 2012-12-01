@@ -9,7 +9,7 @@ class Patient(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
-		return self.first_name + self.last_name
+		return self.first_name + ' ' + self.last_name
 
 class Genre(models.Model):
 	name = models.CharField(max_length=60)
@@ -34,7 +34,7 @@ class Listen(models.Model):
 	patient_rating = models.DecimalField(decimal_places=2, max_digits=4)
 	perc_listened = models.IntegerField()
 	time_started = models.DateTimeField()
-	time_ended = models.DateTimeField()
+	time_ended = models.DateTimeField(null=True, blank=True)
 
 	song = models.ForeignKey(Song)
 	patient = models.ForeignKey(Patient)
@@ -48,14 +48,14 @@ class Carer(models.Model):
 	email = models.EmailField(max_length=60)
 
 	# Many To Many Relationship between Carer and Patient
-	patients = models.ManyToManyField(Patient)
+	patients = models.ManyToManyField(Patient, null=True, blank=True)
 	listens = models.ManyToManyField(Listen, through='Observation')
 	
 	added = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
-		return self.first_name + self.last_name
+		return self.first_name + ' ' + self.last_name
 
 class Observation(models.Model):
 	carer = models.ForeignKey(Carer)
