@@ -5,7 +5,7 @@ class User(models.Model):
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=30)
 
-	image = models.ImageField(upload_to='users', null=True, blank=True)
+	image = models.ImageField(upload_to='mindfulapp/users', null=True, blank=True)
 
 	added = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)

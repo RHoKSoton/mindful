@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -11,11 +11,11 @@ def index(request):
 	return render_to_response('index.html')
 
 def user(request, id):
-	return render_to_response('user.html')
+	return render(request, 'user.html')
 
 def carer(request, id):
 	print id
-	return render_to_response('carer.html')
+	return render_to_response('carer.html', '', RequestContext(request))
 
 def login_user(request):
   if request.method != "POST":
