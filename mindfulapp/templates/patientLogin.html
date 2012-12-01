@@ -1,0 +1,27 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+<a href="{% url login_carer %}">Carer Log In</a>
+<div id="leftColumn">
+<h1>Which patient are you?</h1>
+<ul>
+  {% for patient in patients %}
+    <li>
+      <form action="" method="post">
+        <input type="hidden" name="id" value="{{patient.id}}"/>
+        <input type="submit" value="{{patient}}"/>
+      </form>
+    </li>
+  {% endfor %}
+</ul>
+</div>
+<div id="rightColumn">
+
+</div>
+</body>
+
+</html>
