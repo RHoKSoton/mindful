@@ -5,7 +5,7 @@ class User(models.Model):
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=30)
 
-	image = models.ImageField(upload_to='mindfulapp/users', null=True, blank=True)
+	image = models.ImageField(upload_to='mindfulapp/static/users', null=True, blank=True)
 
 	added = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
@@ -35,7 +35,15 @@ class Song(models.Model):
 	file_name = models.CharField(max_length=100)
 	length = models.IntegerField()	# in second
 	bpm = models.IntegerField()		# beats per minute
-	
+	file = models.FileField(upload_to='mindfulapp/static/music')
+
+	def delete(self, *args, **kwargs):
+		# You have to prepare what you need before delete the model
+		storage, path = self.file.storage, self.file.path
+		# Delete the model before the file
+		super(Song, self).delete(*args, **kwargs)
+		# Delete the file after the model
+		storage.delete(path)
 
 	genre = models.ForeignKey(Genre)
 
