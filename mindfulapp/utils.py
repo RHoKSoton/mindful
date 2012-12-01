@@ -1,11 +1,11 @@
-def is_patient(request):
-  return request.session['patient'] != NULL
+def is_user(request):
+	return 'user' in request.session
 
 def is_carer(request):
-  return request.session['carer'] != NULL
+	return 'carer' in request.session
 
 def is_logged_in(request):
-  return request.session['loggedIn'] != NULL
+	return 'loggedIn' in request.session
 
 def all_logout(request):
   try:
@@ -13,7 +13,7 @@ def all_logout(request):
   except KeyError:
         pass
   try:
-    del request.session['patient']
+    del request.session['user']
   except KeyError:
         pass
   try:

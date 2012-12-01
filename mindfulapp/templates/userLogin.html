@@ -7,13 +7,13 @@
 <body>
 <a href="{% url login_carer %}">Carer Log In</a>
 <div id="leftColumn">
-<h1>Which patient are you?</h1>
+<h1>Which user are you?</h1>
 <ul>
-  {% for patient in patients %}
+  {% for user in users %}
     <li>
       <form action="" method="post">
-        <input type="hidden" name="id" value="{{patient.id}}"/>
-        <input type="submit" value="{{patient}}"/>
+        <input type="hidden" name="id" value="{{user.id}}"/>
+        <input type="submit" value="{{user}}"/>
       </form>
     </li>
   {% endfor %}

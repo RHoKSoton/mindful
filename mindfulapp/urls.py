@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from mindfulapp import views
 
 urlpatterns = patterns('',
+	url(r'^$', views.landing, name="landing"),
 	url(r'^user/(?P<id>\d+)$', views.user, name="user"),
 	url(r'^carer/(?P<id>\d+)$', views.carer, name="carer"),
 	url(r'^$', views.index, name='index'),

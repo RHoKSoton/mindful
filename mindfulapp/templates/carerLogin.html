@@ -1,0 +1,19 @@
+<html>
+<head></head>
+<body>
+
+<h1> Carers Log In </h1>
+
+	<form action="" method="post">
+		{% if noUserFound %}
+		<h2>No user found</h2>
+		{% endif %}
+		email:
+		<input type="text" name="email" value="{{email}}" /><br />
+		password:
+		<input type="password" name="password" value="" /><br />
+		<input type="submit" value="Log In" />
+	</form>
+
+</body>
+</html>
