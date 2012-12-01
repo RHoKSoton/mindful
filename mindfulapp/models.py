@@ -1,11 +1,11 @@
 from django.db import models
 
 # Create your models here.
-class Patient(models.Model):
+class User(models.Model):
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=30)
 
-	image = models.ImageField(upload_to='patients', null=True, blank=True)
+	image = models.ImageField(upload_to='users', null=True, blank=True)
 
 	added = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
@@ -17,7 +17,7 @@ class Patient(models.Model):
 		# You have to prepare what you need before delete the model
 		storage, path = self.image.storage, self.image.path
 		# Delete the model before the file
-		super(Patient, self).delete(*args, **kwargs)
+		super(User, self).delete(*args, **kwargs)
 		# Delete the file after the model
 		storage.delete(path)
 
@@ -43,13 +43,13 @@ class Song(models.Model):
 		return self.title
 
 class Listen(models.Model):
-	patient_rating = models.DecimalField(decimal_places=2, max_digits=4)
+	user_rating = models.DecimalField(decimal_places=2, max_digits=4)
 	perc_listened = models.IntegerField()
 	time_started = models.DateTimeField()
 	time_ended = models.DateTimeField(null=True, blank=True)
 
 	song = models.ForeignKey(Song)
-	patient = models.ForeignKey(Patient)
+	user = models.ForeignKey(User)
 
 	added = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
@@ -59,8 +59,8 @@ class Carer(models.Model):
 	last_name = models.CharField(max_length=30)
 	email = models.EmailField(max_length=60)
 
-	# Many To Many Relationship between Carer and Patient
-	patients = models.ManyToManyField(Patient, null=True, blank=True)
+	# Many To Many Relationship between Carer and User
+	users = models.ManyToManyField(User, null=True, blank=True)
 	listens = models.ManyToManyField(Listen, through='Observation')
 	
 	added = models.DateTimeField(auto_now_add=True)

@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
-from models import Patient
+from models import User
 from utils import *
 
 import sys
@@ -10,30 +10,25 @@ import sys
 def index(request):
 	return render_to_response('index.html')
 
-<<<<<<< HEAD
-def patient(request, id):
+def user(request, id):
 	print id
-	return render_to_response('patient.html')
-=======
-def login_patient(request):
+	return render_to_response('user.html')
+
+def login_user(request):
   if request.method != "POST":
-    patients = Patient.objects.all()
-    return render_to_response('patientLogin.html', {'patients':patients})
+    users = User.objects.all()
+    return render_to_response('userLogin.html', {'users':users})
   try:
-    patient = Patient.objects.get(pk=request.POST['id'])
+    user = User.objects.get(pk=request.POST['id'])
     request.session['loggedIn'] = True
-    request.session['patient'] = patient
+    request.session['user'] = user
   except ObjectDoesNotExist:
     return HttpResponse('No login Information found for this person')
-  return redirect('patient')
+  return redirect('user')
 
 def login_carer(request):
   return HttpResponse('TODO login carer')
 
 def logout(request):
    all_logout(request)
-   return redirect('login_patient')
-
-def patient(request):
-    return HttpResponse('THIS IS THE PATIENT HOME SCREEN');
->>>>>>> 601ac51b8510f656ddeac3099e29c935daee7b80
+   return redirect('login_user')
