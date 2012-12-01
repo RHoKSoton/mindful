@@ -7,4 +7,3 @@ admin.site.register(Song)
 admin.site.register(Listen)
 admin.site.register(Carer)
 admin.site.register(Observation)
-

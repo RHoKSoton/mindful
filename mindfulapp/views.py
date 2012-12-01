@@ -11,8 +11,11 @@ def index(request):
 	return render_to_response('index.html')
 
 def user(request, id):
-	print id
 	return render_to_response('user.html')
+
+def carer(request, id):
+	print id
+	return render_to_response('carer.html')
 
 def login_user(request):
   if request.method != "POST":
