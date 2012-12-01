@@ -2,7 +2,8 @@ from django.shortcuts import render_to_response, redirect
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
-from models import Patient,Carer
+from models import User, Carer
+
 from utils import *
 
 import sys
@@ -12,24 +13,31 @@ def index(request):
 
 def landing(request):
 	if is_logged_in(request):
-		if is_patient(request):
-			return redirect('patient')
+		if is_user(request):
+			return redirect('user')
 		else:
 			return HttpResponse('You are logged in as a carer')
 	else:
-		return redirect('login_patient')
+		return redirect('login_user')
 
-def login_patient(request):
+def user(request, id):
+	return render_to_response('user.html')
+
+def carer(request, id):
+	print id
+	return render_to_response('carer.html')
+
+def login_user(request):
   if request.method != "POST":
-    patients = Patient.objects.all()
-    return render_to_response('patientLogin.html', {'patients':patients})
+    users = User.objects.all()
+    return render_to_response('userLogin.html', {'users':users})
   try:
-    patient = Patient.objects.get(pk=request.POST['id'])
+    user = User.objects.get(pk=request.POST['id'])
     request.session['loggedIn'] = True
-    request.session['patient'] = patient
+    request.session['user'] = user
   except ObjectDoesNotExist:
     return HttpResponse('No login Information found for this person')
-  return redirect('patient')
+  return redirect('user', user.id)
 
 def login_carer(request):
 	if request.method == "POST":
@@ -47,7 +55,4 @@ def login_carer(request):
 
 def logout(request):
    all_logout(request)
-   return redirect('login_patient')
-
-def patient(request):
-    return HttpResponse('THIS IS THE PATIENT HOME SCREEN');
+   return redirect('login_user')
