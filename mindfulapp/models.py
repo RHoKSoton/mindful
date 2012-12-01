@@ -5,7 +5,7 @@ class Patient(models.Model):
 	first_name = models.CharField(max_length=30)
 	last_name = models.CharField(max_length=30)
 
-	image = models.ImageField(upload_to='patients')
+	image = models.ImageField(upload_to='patients', null=True, blank=True)
 
 	added = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
