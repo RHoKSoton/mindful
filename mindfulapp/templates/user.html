@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block main %}
 
-<div>
-	<img src="{{STATIC_URL}}/img/BubbleStatic.JPG"/>
-</div>
-<div>
-	<a href="{% url play userId %}"><button class="btn btn-large btn-warning" type="button">PLAY MUSIC</button></a>
+<div class="container" style="text-align: center;background-color: #F0F0F0">
+	<div>
+		<img src="{{STATIC_URL}}img/BubbleStatic.JPG"/>
+	</div>
+	<div style="margin-top:2em;">
+		<a href="{% url play userId %}"><button class="btn btn-large btn-warning" type="button">PLAY MUSIC</button></a>
+	</div>
 </div>
 {% endblock %}

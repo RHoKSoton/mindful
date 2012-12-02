@@ -54,7 +54,7 @@
 	{% endblock %}
 
 	{% block main %}
-
+	<div class="container" style="background-color: #F0F0F0">
 		<!-- The jPlayer div must not be hidden. Keep it at the root of the body element to avoid any such problems. -->
 		<div id="jquery_jplayer_1" class="cp-jplayer"></div>
 
@@ -80,11 +80,11 @@
 			</div>
 
 		</div>
-		{{filename}}
 
-
-		<div>
+		<div style="text-align:center; margin-top:2em;">
+			<p>{{filename}}</p>
 			<span onclick="setRating(10)"><button class="btn btn-large btn-success" type="button">LIKE</button></span>
 			<span onclick="setRating(0)"><button class="btn btn-large btn-danger" type="button">DISLIKE</button></span>
 		</div>
+	</div>
 	{% endblock %}
