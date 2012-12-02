@@ -15,6 +15,8 @@ def getlisteners(request, carerid):
 		user__in=carer.users.all
 	).filter(
 		time_ended__isnull=True
+	).order_by(
+		'-time_started'
 	)
 	results = []
 	for listener in listeners:
