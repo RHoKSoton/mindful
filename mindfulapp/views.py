@@ -51,7 +51,7 @@ def play(request, userId):
 	newListen = Listen(user_rating = 5, perc_listened = 100, time_started = datetime.now(), song = play_song, user = currentUser)
 	newListen.save()
 
-	return render(request, 'play.html', {'filename':filename, 'listenId':newListen.id})
+	return render(request, 'play.html', {'filename':filename, 'listenId':newListen.id, 'userId':userId})
 
 def carer(request, id):
 	carer = Carer.objects.get(pk=id)

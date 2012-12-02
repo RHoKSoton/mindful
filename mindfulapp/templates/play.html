@@ -40,7 +40,7 @@
 		}
 		
 		function success() {
-			alert('Rated');
+			//alert('Rated');
 		}
 
 		function finishSong() {
@@ -48,7 +48,8 @@
 		}
 
 		function redirect() {
-			location.href='http://localhost:8080/user/1/play';
+			//location.href='http://localhost:8080/user/1/play';
+			location.href="{% url play userId %}";
 		}
 		</script>
 	{% endblock %}
