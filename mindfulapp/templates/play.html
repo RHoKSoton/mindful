@@ -47,6 +47,11 @@
 			Dajaxice.mindfulapp.setFinishTime(redirect, {'listenId':{{listenId}}});
 		}
 
+		function leavePage() {
+			finishSong();
+			location.href="{% url user userId %}";
+		}
+
 		function redirect() {
 			//location.href='http://localhost:8080/user/1/play';
 			location.href="{% url play userId %}";
@@ -86,6 +91,10 @@
 			<p>{{filename}}</p>
 			<span onclick="setRating(10)"><button class="btn btn-large btn-success" type="button">LIKE</button></span>
 			<span onclick="setRating(0)"><button class="btn btn-large btn-danger" type="button">DISLIKE</button></span>
+		</div>
+
+		<div style="text-align:center; margin-top:2em;">
+			<span onclick="leavePage()"><button class="btn btn-large btn-warning" type="button">LEAVE</button></span>
 		</div>
 	</div>
 	{% endblock %}
