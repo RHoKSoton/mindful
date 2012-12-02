@@ -1,0 +1,50 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Profile for {{user}}</h1>
+<h1>Listen History</h1>
+<table border="1">
+<tr>
+<th>ID</th>
+<th>Title</th>
+<th>Artist</th>
+<th>User Score</th>
+<th>Carer Score</th>
+<th>Carer Notes</th>
+<th>Time Ago</th>
+</tr>
+<tr>
+{% for listen in listens %}
+<td>{{listen.id}}</td>
+<td>{{listen.song.title}}</td>
+<td>{{listen.song.artist}}</td>
+<td>9</td>
+<td>
+{% for observation in observations %}
+{% if observation.listen.id == listen.id %}
+{{observation.carer_rating}}
+{% endif %}
+{% endfor %}
+<a href="">edit</a>
+</td>
+<td>
+{% for observation in observations %}
+{% if observation.listen.id == listen.id %}
+{{observation.notes}}
+{% endif %}
+{% endfor %}
+<a href="">edit</a>
+</td>
+<td>{{listen.time_started}}</td>
+{% endfor %}
+</tr>
+</table>
+<h2>Observations</h2>
+{% for observation in observations %}
+{{observation.carer}} saw {{ observation.listen.user }} listening (id = {{observation.listen.id}}) to {{observation.listen.song}} 
+{% empty %}
+No observations!
+{% endfor %}
+</body>
+</html>
