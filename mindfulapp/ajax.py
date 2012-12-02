@@ -17,7 +17,7 @@ def getlisteners(request, carerid):
 	)
 	results = []
 	for listener in listeners:
-		results.append({'id': listener.id, 'name' : listener.user.name(), 'song' : listener.song.title})
+		results.append({'id': listener.id, 'first_name':listener.user.first_name, 'name' : listener.user.name(), 'song' : listener.song.title})
 	return simplejson.dumps(results)
 
 
