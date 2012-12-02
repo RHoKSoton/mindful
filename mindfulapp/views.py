@@ -1,9 +1,16 @@
 from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
+<<<<<<< HEAD
 
 from models import User, Carer, Listen, Observation
 from forms import ObservationForm
+=======
+from random import choice
+from models import User, Carer, Song, Listen, Observation
+from django.db.models import Avg
+from forms import ChooseUserForm
+>>>>>>> eb3249bbd1b627994198586868ac01ecae26c9c1
 from utils import *
 
 import sys
@@ -20,8 +27,27 @@ def landing(request):
 	else:
 		return redirect('login_user')
 
-def user(request, id):
-	return render(request, 'user.html')
+def user_play(request, id):
+	# Get songs
+	songs = Song.objects.all()
+	# get songs with best average
+	listens = Listen.objects.values('song').annotate(avg=Avg('user_rating')).order_by('-avg')
+
+	listens = listens[:5]
+
+	# select one randomly, get the id, do a lookup in SONG, get path
+
+	from random import choice
+	listens = choice(listens)
+
+	song_id = listens['song']
+
+	song = Song.objects.get(id = song_id)
+
+	# extract file name
+	path = song.file.path
+	filename = path[(path.rfind('/')+1):]
+	return render(request, 'user_play.html', {'filename':filename})
 
 def carer(request, id):
 	carer = Carer.objects.get(pk=id)
