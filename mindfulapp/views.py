@@ -110,9 +110,9 @@ def login_carer(request):
 			request.session['carer'] = carer
 			return redirect('carer', carer.id)
 		except ObjectDoesNotExist:
-				  return render_to_response('carerLogin.html', {'noUserFound':True})
+				  return render(request, 'carerLogin.html', {'noUserFound':True})
 	else:	
-	  return render_to_response('carerLogin.html')
+	  return render(request, 'carerLogin.html')
 
 def logout(request):
    all_logout(request)

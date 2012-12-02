@@ -1,19 +1,14 @@
-<html>
-<head></head>
-<body>
+{% extends "base.html" %}
+{% block main %}
+		<form class="form-signin" action="" method="post">
+	        <h2 class="form-signin-heading">Carer Login</h2>
+	        {% if noUserFound %}
+			<p class="alert alert-error">No user found</p>
+			{% endif %}
 
-<h1> Carers Log In </h1>
+	        <input type="text" class="input-block-level" placeholder="Email address" name="email" value="{{email}}">
+	        <input type="password" class="input-block-level" placeholder="Password" name="password">
+	        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+      </form>
 
-	<form action="" method="post">
-		{% if noUserFound %}
-		<h2>No user found</h2>
-		{% endif %}
-		email:
-		<input type="text" name="email" value="{{email}}" /><br />
-		password:
-		<input type="password" name="password" value="" /><br />
-		<input type="submit" value="Log In" />
-	</form>
-
-</body>
-</html>
+{% endblock %}
