@@ -1,19 +1,21 @@
 {% extends "base.html" %}
-{% block main %}
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <div class="user-container">
+{% block main %}        
+        <div class="user-container form-signin">
+          <h2 class="form-signin-heading">Please sign in</h2>
           <div class="row">
             <div class="span">
               {% for user in users %}
 							<form action="" method="post">
 								<input type="hidden" name="id" value="{{user.id}}"/>
-								<input type="image" src="{{user.image}}" alt="Image"/>
+								<input type="image" src="{{STATIC_URL}}users/{{user.get_local_path}}" alt="Image" class="img-polaroid" />
 							</form>
-              {% endfor %}              
-            </div>
+              {% endfor %}      
+                    
+            </div>              
           </div>
+            <a href="{% url login_carer %}">Carer Log In</a>
         </div>
 
-<a href="{% url login_carer %}">Carer Log In</a>
+
 {% endblock %}
 

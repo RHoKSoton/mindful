@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
 
-from models import User, Carer, Listen, Observation
+from models import User, Carer, Listen, Observation, Song
 from forms import ObservationForm
 from random import choice
 from django.db.models import Avg
@@ -97,7 +97,6 @@ def login_user(request):
     request.session['user'] = user
   except ObjectDoesNotExist:
     return HttpResponse('No login Information found for this person')
-  print 'here'
   return redirect('user', user.id)
 
 def login_carer(request):

@@ -16,6 +16,12 @@ class User(models.Model):
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name
 
+	def get_local_path(self):
+		path = self.image.path
+		correct = path[(path.rfind('/')+1):] 
+		print correct
+		return correct
+
 	def delete(self, *args, **kwargs):
 		# You have to prepare what you need before delete the model
 		storage, path = self.image.storage, self.image.path
