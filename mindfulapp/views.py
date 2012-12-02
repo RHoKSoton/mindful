@@ -1,11 +1,12 @@
 from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
-from random import choice
-from django.db.models import Avg
+
+
 from models import User, Carer, Listen, Observation
 from forms import ObservationForm
-
+from random import choice
+from django.db.models import Avg
 from utils import *
 
 import sys
