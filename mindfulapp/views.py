@@ -8,6 +8,7 @@ from forms import ObservationForm
 from random import choice
 from django.db.models import Avg
 from utils import *
+from datetime import datetime
 
 import sys
 
@@ -38,12 +39,19 @@ def user_play(request, id):
 
 	song_id = listens['song']
 
-	song = Song.objects.get(id = song_id)
+	play_song = Song.objects.get(id = song_id)
 
 	# extract file name
-	path = song.file.path
+	path = play_song.file.path
 	filename = path[(path.rfind('/')+1):]
-	return render(request, 'user_play.html', {'filename':filename})
+
+
+	# Create new listen object
+	currentUser = User.objects.get(id = 1)
+	newListen = Listen(user_rating = 5, perc_listened = 100, time_started = datetime.now(), song = play_song, user = currentUser)
+	newListen.save()
+
+	return render(request, 'user_play.html', {'filename':filename, 'listenId':newListen.id})
 
 def carer(request, id):
 	carer = Carer.objects.get(pk=id)

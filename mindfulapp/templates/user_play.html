@@ -1,6 +1,8 @@
+{% load dajaxice_templatetags %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		{% dajaxice_js_import %}
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width; initial-scale=1.5; user-scalable=no;">
 		<title></title>
@@ -31,6 +33,22 @@
 			});
 
 		});
+
+		function setRating(rating) {
+			Dajaxice.mindfulapp.updaterating(success, {'listenId':{{listenId}}, 'rating':rating });
+		}
+		
+		function success() {
+			alert('Rated');
+		}
+
+		function finishSong() {
+			Dajaxice.mindfulapp.setFinishTime(redirect, {'listenId':{{listenId}}});
+		}
+
+		function redirect() {
+			location.href='http://localhost:8080/user/1/play';
+		}
 		</script>
 	</head>
 	<body style="text-align:center">
@@ -62,6 +80,10 @@
 		</div>
 		{{filename}}
 
+
+		<div>
+			<span onclick="setRating(10)">Like</span><span onclick="setRating(0)">Dislike</span>
+		</div>
 	</body>
 </html>
 

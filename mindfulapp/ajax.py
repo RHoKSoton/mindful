@@ -2,6 +2,7 @@ from django.utils import simplejson
 from django.core.serializers.json import DjangoJSONEncoder
 from dajaxice.decorators import dajaxice_register
 from models import User, Carer, Listen
+from datetime import datetime
 
 @dajaxice_register
 def sayhello(request):
@@ -19,6 +20,19 @@ def getlisteners(request, carerid):
 	for listener in listeners:
 		results.append({'id': listener.id, 'name' : listener.user.name(), 'song' : listener.song.title, 'rating' : listener.user_rating})
 	return simplejson.dumps(results, cls=DjangoJSONEncoder)
+
+@dajaxice_register
+def updaterating(request, listenId, rating):
+	listen = Listen.objects.get(pk=listenId)
+	listen.user_rating = rating
+	listen.save()
+
+@dajaxice_register
+def setFinishTime(request, listenId):
+	listen = Listen.objects.get(pk=listenId)
+	listen.time_ended = datetime.now()
+	listen.save()
+
 
 
 
