@@ -1,5 +1,5 @@
 from django.utils import simplejson
-from django.core import serializers
+from django.core.serializers.json import DjangoJSONEncoder
 from dajaxice.decorators import dajaxice_register
 from models import User, Carer, Listen
 
@@ -17,8 +17,8 @@ def getlisteners(request, carerid):
 	)
 	results = []
 	for listener in listeners:
-		results.append({'id': listener.id, 'name' : listener.user.name(), 'song' : listener.song.title})
-	return simplejson.dumps(results)
+		results.append({'id': listener.id, 'name' : listener.user.name(), 'song' : listener.song.title, 'rating' : listener.user_rating})
+	return simplejson.dumps(results, cls=DjangoJSONEncoder)
 
 
 
