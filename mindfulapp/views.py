@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
 
-from models import User, Carer, Listen, Observation
+from models import User, Carer, Listen, Observation, Song
 from forms import ObservationForm
 from random import choice
 from django.db.models import Avg
