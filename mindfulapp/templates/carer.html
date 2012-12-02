@@ -1,17 +1,80 @@
-{% load dajaxice_templatetags %}
-<html>
-<head>
-{% dajaxice_js_import %}
-<script type="text/javascript" src="{{ STATIC_URL }}lib/jquery-1.8.3.min.js"></script>
+{% extends "base.html" %}
+{% block top-nav %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+		  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		  </a>
+		  <a class="brand" href="#">Mindful Music</a>
+		  <div class="nav-collapse collapse">
+		    <p class="navbar-text pull-right">
+		      Logged in as <a href="#" class="navbar-link">Username</a>
+		    </p>
+		    <ul class="nav">
+		      <li class="active"><a href="#">Overview</a></li>
+		    </ul>
+		  </div><!--/.nav-collapse -->
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block bubblechart %}
+<div class="container-fluid carer">
+	<div class="row-fluid">
+		<div class="span8">
+		  <div class="row-fluid">
+		    <div id="bubblechart" style="height:450px;width:100%; "></div>
+		  </div>
+		</div><!--/span-->
+{% endblock %}
+{% block side-bar%}
+	<div class="span4">
+	  <div class="well sidebar-nav clearfix">
+	    <ul class="nav nav-list user-list">
+	      <form class="navbar-search pull-left">
+	        <input type="text" class="search-query" placeholder="Search">
+	      </form>    
+	       
+	    </ul>
+	  </div><!--/.well -->
+	</div><!--/span-->
+
+	</div><!--/row-->
+
+	{% endblock %}
+
+{% block main %}
+<!-- 
+	Oli's code - still need for reference 
+<h1>Users That Are Listening Now</h1>
+<table id="listenerTable"></table>
+<h1>Find a user</h1>
+<select id="chooseUser">
+<option value="">Choose a person</option>
+{% for userIt in users %}
+<option value="{% url view_user carerid userIt.id %}">{{userIt.name}}</option>
+{% endfor %}
+</select>
+<button value="GO" onClick="visitUser()">Visit</button>
+
+
+<h1>Recent History</h1>
+-->
 <script type="text/javascript">
 function displayListeners(data){
+	console.log("rawr");
 	var newData = "";
 	$(data).each(function(index, item){
-		var newRow = '<tr>'+'<td>'+item['id']+'</td>'+'<td>'+item['name']+'</td>'+'<td>'+item['song']+'</td>'+'</tr>';
+	    var newRow = '<li><a class="user user-'+item['first_name']+'"" style="float:left"><img src="{{ STATIC_URL }}img/'+item['first_name']+'.png" class="img-polaroid avatar"><div class="track-info"><span class="song-info"><span><strong>'+item['song']+'</strong></span><span>'+item['artist']+'</span></span><span class="rating">'+item['rating']+'</span><span class="suitability"></span></div></a>';
+	    
 		newData += newRow;
 	});
-	$('#listenerTable tr').remove();
-	$('#listenerTable').append(newData);
+	$('.user-list li').remove();
+	$('.user-list').append(newData);
 }
 
 function fetchListeners() {
@@ -25,26 +88,59 @@ function visitUser() {
 	}
 }
 </script>
-
-</head>
-
-<body>
-
-<h1>Users That Are Listening Now</h1>
-<table id="listenerTable"></table>
-<h1>Find a user</h1>
-<select id="chooseUser">
-<option value="">Choose a person</option>
-{% for userIt in users %}
-<option value="{% url view_user carerid userIt.id %}">{{userIt.name}}</option>
-{% endfor %}
-</select>
-<button value="GO" onClick="visitUser()">Visit</button>
-
-<h1>Recent History</h1>
 <script type="text/javascript">
 	fetchListeners();
 	setInterval(fetchListeners,1000*5);
 </script>
-</body>
-</html>
+{% endblock %}
+{% block bubbleChartScript %}
+<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery.jqplot.min.js"></script>
+
+    <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jqplot.bubbleRenderer.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+     // TODO: Plots are hardcoded, need to get data from database.
+
+      var arr = [
+        [0.0, 0.0, 0.0],
+        [0.77, 0.5, 0.45, "Mary"],
+        [0.8, 0.59, 0.75, "Winsten"]
+
+      ];
+       
+      var plot1 = $.jqplot('bubblechart',[arr],{
+          title: '',
+          axesDefaults:{min:0},
+          grid: {
+            drawGridLines: false,
+            gridLineColor: 'whiteSmoke',
+            background: 'white',
+          },
+          seriesDefaults:{
+              renderer: $.jqplot.BubbleRenderer,
+              rendererOptions: {
+                bubbleAlpha: 0.6,
+                highlightAlpha: 0.8
+              },
+              shadow: true
+          }
+      });
+
+       // Now bind function to the highlight event to show the tooltip
+  // and highlight the row in the legend. 
+  $('#bubblechart').bind('jqplotDataHighlight', 
+    function (ev, seriesIndex, pointIndex, data, radius) {
+      $('.user').css('background-color', 'whiteSmoke');
+      $('.name-' + data[3]).css('background-color', '#A9D0F5');
+    });
+   
+  // Bind a function to the unhighlight event to clean up after highlighting.
+  $('#bubblechart').bind('jqplotDataUnhighlight', 
+      function (ev, seriesIndex, pointIndex, data, radius) {
+          $('.user').css('background-color', 'whiteSmoke');
+      });
+    });
+    </script>
+{% endblock %}
