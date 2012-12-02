@@ -134,7 +134,7 @@ CirclePlayer.prototype = {
 			self._resetSolution();
 			
 			// INSERT REDIRECTION HERE
-			location.href='http://localhost:8080/user/1/play'
+			finishSong();
 		});
 	},
 	_initSolution: function() {
