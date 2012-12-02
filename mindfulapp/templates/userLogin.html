@@ -3,11 +3,11 @@
         <div class="user-container form-signin">
           <h2 class="form-signin-heading">Please sign in</h2>
           <div class="row">
-            <div class="span">
+            <div class="span7">
               {% for user in users %}
-							<form action="" method="post">
+							<form action="" method="post" style="margin: 0px">
 								<input type="hidden" name="id" value="{{user.id}}"/>
-								<input type="image" src="{{STATIC_URL}}users/{{user.get_local_path}}" alt="Image" class="img-polaroid" />
+								<input type="image" src="{{STATIC_URL}}users/{{user.get_local_path}}" alt="Image" class="img-polaroid avatar" />
 							</form>
               {% endfor %}      
                     

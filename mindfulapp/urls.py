@@ -4,7 +4,7 @@ from mindfulapp import views
 urlpatterns = patterns('',
 	url(r'^$', views.landing, name="landing"),
   url(r'^user/(?P<id>\d+)$',views.user,name="user"),
-	url(r'^user/(?P<id>\d+)/play$', views.user_play, name="user_play"),
+	url(r'^user/(?P<userId>\d+)/play$', views.play, name="play"),
 	url(r'^carer/(?P<id>\d+)$', views.carer, name="carer"),
 	url(r'^carer/(?P<carer_id>\d+)/user/(?P<user_id>\d+)$', views.view_user, name="view_user"),
 	url(r'^observation/(?P<carerid>\d+)/(?P<listenid>\d+)$', views.observation, name="observation"),

@@ -24,7 +24,7 @@ def landing(request):
 	else:
 		return redirect('login_user')
 
-def user_play(request, id):
+def play(request, userId):
 	# Get songs
 	songs = Song.objects.all()
 	# get songs with best average
@@ -39,7 +39,7 @@ def user_play(request, id):
 
 	song_id = listens['song']
 
-	play_song = Song.objects.get(id = song_id)
+	play_song = Song.objects.get(pk = song_id)
 
 	# extract file name
 	path = play_song.file.path
@@ -47,18 +47,18 @@ def user_play(request, id):
 
 
 	# Create new listen object
-	currentUser = User.objects.get(id = 1)
+	currentUser = User.objects.get(pk = userId)
 	newListen = Listen(user_rating = 5, perc_listened = 100, time_started = datetime.now(), song = play_song, user = currentUser)
 	newListen.save()
 
-	return render(request, 'user_play.html', {'filename':filename, 'listenId':newListen.id})
+	return render(request, 'play.html', {'filename':filename, 'listenId':newListen.id})
 
 def carer(request, id):
 	carer = Carer.objects.get(pk=id)
 	return render(request, 'carer.html', {'carerid':id, 'users':carer.users.all})
 
 def user(request, id):
-  return HttpResponse('You are signed in as a user')
+  return render(request, 'user.html', {'userId':id})
 
 def view_user(request, carer_id, user_id):
 	user = User.objects.get(pk=user_id)
