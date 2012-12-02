@@ -116,3 +116,6 @@ def login_carer(request):
 def logout(request):
    all_logout(request)
    return redirect('login_user')
+
+def playlist(request):
+	return render(request, 'playlist.html')
