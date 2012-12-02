@@ -7,7 +7,7 @@
 function displayListeners(data){
 	var newData = "";
 	$(data).each(function(index, item){
-		var newRow = '<tr>'+'<td>'+item['id']+'</td>'+'<td>'+item['name']+'</td>'+'<td>'+item['song']+'</td>'+'</tr>';
+		var newRow = '<tr>'+'<td>'+item['id']+'</td>'+'<td><a href="{% url carer carerid %}/user/'+item['id']+'">'+item['name']+'</a></td>'+'<td>'+item['song']+'</td>'+'</tr>';
 		newData += newRow;
 	});
 	$('#listenerTable tr').remove();
