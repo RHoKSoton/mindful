@@ -89,7 +89,7 @@ def observation(request, carerid, listenid):
 def login_user(request):
   if request.method != "POST":
     users = User.objects.all()
-    return render_to_response('userLogin.html', {'users':users})
+    return render(request, 'userLogin.html', {'users':users})
   try:
     user = User.objects.get(pk=request.POST['id'])
     request.session['loggedIn'] = True

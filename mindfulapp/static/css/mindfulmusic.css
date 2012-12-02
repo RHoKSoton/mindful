@@ -1,0 +1,165 @@
+/* Generic styles */
+
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+	background-color: whiteSmoke;
+	
+
+}
+
+.container {
+	padding: 19px 29px 29px;
+	margin: 0 auto 20px;
+	background-color: white;
+	border: 1px solid #E5E5E5;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+}
+
+/* End of Generic Styles */
+
+/* User login styles */
+
+.form-signin {
+    max-width: 540px;
+    padding: 19px 29px 29px;
+    margin: 0 auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  }
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+    margin-bottom: 10px;
+  }
+  .form-signin input[type="text"],
+  .form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+  }
+
+  .img-polaroid {
+    padding: 10px;
+    margin-right: 10px;
+    height: 100px;
+    width: 100px;
+  }
+
+  .user-container .row {
+    margin-bottom:15px;
+  }
+
+  .user-container a:hover {
+    opacity: 0.9;
+  }
+
+ /* End user login */
+
+/* Music Player page styles */
+
+.music-player-track-info {
+	text-align: center;
+	width: 250px;
+    margin: 0 auto;
+}
+
+.music-player {
+      margin: 50px auto;
+      text-align: center;
+      display:block;
+    }
+
+.music-player-view-playlist {
+  float: right;
+}
+
+.music-player-smiley-rating {
+    margin-top: 0px;
+    display:block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.play-button {
+	display:block;
+	margin: 100px auto;
+	width: 200px;
+	padding: 50px;
+}
+
+/* End of Music Player styles */
+
+/* Carer page styles */
+
+.sidebar-nav {
+	padding: 9px 0;
+}
+
+.track-info span {
+	display:block;
+}
+
+.track-info {
+	display:inline-block;
+	padding: 20px 0 0 10px;
+	font-size: 16px;
+	color: #333;
+}
+
+.song-info {
+	float: left;
+	width: 150px;
+}
+
+.rating {
+	float: left;
+	font-size: 60px;
+	padding: 20px 0 0 15px;
+}
+
+.avatar {
+	display: inline;
+	float: left;
+}
+
+.user {
+	margin-top: 10px;
+	width: 100%;
+}
+
+.suitability {
+	width: 10px;
+	height: 10px;
+	background-color: green;
+	float: left;
+	margin: 25px 0 0 10px;
+}
+
+.nav-list > li > a.user {
+	float: left;
+}
+
+.nav-list > li > a.user:hover {
+	background-color: #A9D0F5;
+	cursor: pointer;
+	width: 100%;
+}
+
+.navbar-search .search-query {
+	padding: 14px 14px;
+}
+
+/* End of Carer page styles */
+
