@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+
+{% block main %}
 {% block top-nav %}
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
@@ -44,10 +46,8 @@
 	</div><!--/span-->
 
 	</div><!--/row-->
+{% endblock %}
 
-	{% endblock %}
-
-{% block main %}
 <!-- 
 	Oli's code - still need for reference 
 <h1>Users That Are Listening Now</h1>
@@ -66,7 +66,6 @@
 -->
 <script type="text/javascript">
 function displayListeners(data){
-	console.log("rawr");
 	var newData = "";
 	$(data).each(function(index, item){
 	    var newRow = '<li><a class="user user-'+item['first_name']+'"" style="float:left"><img src="{{ STATIC_URL }}img/'+item['first_name']+'.png" class="img-polaroid avatar"><div class="track-info"><span class="song-info"><span><strong>'+item['song']+'</strong></span><span>'+item['artist']+'</span></span><span class="rating">'+item['rating']+'</span><span class="suitability"></span></div></a>';
@@ -93,12 +92,14 @@ function visitUser() {
 	setInterval(fetchListeners,1000*5);
 </script>
 {% endblock %}
+
+
 {% block bubbleChartScript %}
 <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery.jqplot.min.js"></script>
 
-    <script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jqplot.bubbleRenderer.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/plugins/jqplot.bubbleRenderer.min.js"></script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function(){
 
      // TODO: Plots are hardcoded, need to get data from database.
