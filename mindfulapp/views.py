@@ -57,6 +57,9 @@ def carer(request, id):
 	carer = Carer.objects.get(pk=id)
 	return render(request, 'carer.html', {'carerid':id, 'users':carer.users.all})
 
+def user(request, id):
+  return HttpResponse('You are signed in as a user')
+
 def view_user(request, carer_id, user_id):
 	user = User.objects.get(pk=user_id)
 	listens = Listen.objects.filter(
@@ -84,8 +87,6 @@ def observation(request, carerid, listenid):
 		form = ObservationForm(instance = observation)
 		return render(request, 'observation.html', {'form':form})
 
-
-
 def login_user(request):
   if request.method != "POST":
     users = User.objects.all()
@@ -96,6 +97,7 @@ def login_user(request):
     request.session['user'] = user
   except ObjectDoesNotExist:
     return HttpResponse('No login Information found for this person')
+  print 'here'
   return redirect('user', user.id)
 
 def login_carer(request):

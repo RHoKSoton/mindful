@@ -69,7 +69,6 @@ function displayListeners(data){
 	var newData = "";
 	$(data).each(function(index, item){
 	    var newRow = '<li><a class="user user-'+item['first_name']+'"" style="float:left"><img src="{{ STATIC_URL }}img/'+item['first_name']+'.png" class="img-polaroid avatar"><div class="track-info"><span class="song-info"><span><strong>'+item['song']+'</strong></span><span>'+item['artist']+'</span></span><span class="rating">'+item['rating']+'</span><span class="suitability"></span></div></a>';
-	    
 		newData += newRow;
 	});
 	$('.user-list li').remove();
