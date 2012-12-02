@@ -1,5 +1,8 @@
 from django import forms
-from models import User
+from models import User, Observation
 
-class ChooseUserForm(forms.Form):
-    user = forms.ModelChoiceField(queryset = User.objects.all(), empty_label="Select a user")
+class ObservationForm(forms.ModelForm):
+
+		class Meta:
+				model = Observation
+				fields = ('carer_rating','notes');

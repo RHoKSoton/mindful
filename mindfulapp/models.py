@@ -84,6 +84,5 @@ class Carer(models.Model):
 class Observation(models.Model):
 	carer = models.ForeignKey(Carer)
 	listen = models.ForeignKey(Listen)
-	carer_rating = models.DecimalField(decimal_places=2, max_digits=4)
-	notes = models.CharField(max_length=256)
-	
+	carer_rating = models.DecimalField(decimal_places=2, max_digits=4, null=True, blank=True)
+	notes = models.CharField(max_length=256, null=True, blank=True)
