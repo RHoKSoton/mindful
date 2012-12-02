@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
-from models import User, Carer, Listen
+from models import User, Carer, Listen, Observation
 from forms import ChooseUserForm
 from utils import *
 
@@ -28,7 +28,19 @@ def carer(request, id):
 	return render(request, 'carer.html', {'carerid':id, 'users':carer.users.all})
 
 def view_user(request, carer_id, user_id):
-	return HttpResponse('Viewing user '+user_id);
+	user = User.objects.get(pk=user_id)
+	listens = Listen.objects.filter(
+		user_id = user_id
+	).order_by(
+		'-added'
+	)
+	observations = Observation.objects.filter(
+			carer_id = carer_id
+	).filter(
+			listen__in = listens
+	)
+	
+	return render(request, 'carerUserProfile.html', {'listens':listens, 'user':user, 'observations':observations})
 
 def login_user(request):
   if request.method != "POST":
