@@ -35,7 +35,7 @@ class Genre(models.Model):
 class Song(models.Model):
 	title = models.CharField(max_length=100)
 	artist = models.CharField(max_length=60)
-	file_name = models.CharField(max_length=100)
+	#file_name = models.CharField(max_length=100)
 	length = models.IntegerField()	# in second
 	bpm = models.IntegerField()		# beats per minute
 	file = models.FileField(upload_to='mindfulapp/static/music')
@@ -84,5 +84,5 @@ class Carer(models.Model):
 class Observation(models.Model):
 	carer = models.ForeignKey(Carer)
 	listen = models.ForeignKey(Listen)
-	carer_rating = models.DecimalField(decimal_places=2, max_digits=4)
-	notes = models.CharField(max_length=256)
+	carer_rating = models.DecimalField(decimal_places=2, max_digits=4, null=True, blank=True)
+	notes = models.CharField(max_length=256, null=True, blank=True)

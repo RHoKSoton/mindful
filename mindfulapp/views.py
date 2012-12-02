@@ -2,9 +2,13 @@ from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
-from models import User, Carer, Listen
-from forms import ChooseUserForm
+
+from models import User, Carer, Listen, Observation
+from forms import ObservationForm
+from random import choice
+from django.db.models import Avg
 from utils import *
+from datetime import datetime
 
 import sys
 
@@ -20,15 +24,67 @@ def landing(request):
 	else:
 		return redirect('login_user')
 
-def user(request, id):
-	return render(request, 'user.html')
+def user_play(request, id):
+	# Get songs
+	songs = Song.objects.all()
+	# get songs with best average
+	listens = Listen.objects.values('song').annotate(avg=Avg('user_rating')).order_by('-avg')
+
+	listens = listens[:5]
+
+	# select one randomly, get the id, do a lookup in SONG, get path
+
+	from random import choice
+	listens = choice(listens)
+
+	song_id = listens['song']
+
+	play_song = Song.objects.get(id = song_id)
+
+	# extract file name
+	path = play_song.file.path
+	filename = path[(path.rfind('/')+1):]
+
+
+	# Create new listen object
+	currentUser = User.objects.get(id = 1)
+	newListen = Listen(user_rating = 5, perc_listened = 100, time_started = datetime.now(), song = play_song, user = currentUser)
+	newListen.save()
+
+	return render(request, 'user_play.html', {'filename':filename, 'listenId':newListen.id})
 
 def carer(request, id):
 	carer = Carer.objects.get(pk=id)
 	return render(request, 'carer.html', {'carerid':id, 'users':carer.users.all})
 
 def view_user(request, carer_id, user_id):
-	return HttpResponse('Viewing user '+user_id);
+	user = User.objects.get(pk=user_id)
+	listens = Listen.objects.filter(
+		user_id = user_id
+	).order_by(
+		'-added'
+	)
+	observations = Observation.objects.filter(
+			carer_id = carer_id
+	).filter(
+			listen__in = listens
+	)
+	return render(request, 'carerUserProfile.html', {'listens':listens, 'user':user, 'observations':observations, 'carerid':carer_id})
+
+def observation(request, carerid, listenid):
+	try:
+		observation = Observation.objects.get(carer_id = carerid, listen_id = listenid)	
+	except ObjectDoesNotExist:
+		observation = Observation(carer_id = carerid, listen_id = listenid)
+	if request.method == "POST":
+		form = ObservationForm(request.POST, instance = observation)
+		form.save()
+		return redirect('view_user', carerid, observation.listen.user.id);
+	else:
+		form = ObservationForm(instance = observation)
+		return render(request, 'observation.html', {'form':form})
+
+
 
 def login_user(request):
   if request.method != "POST":

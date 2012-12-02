@@ -1,0 +1,89 @@
+{% load dajaxice_templatetags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% dajaxice_js_import %}
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width; initial-scale=1.5; user-scalable=no;">
+		<title></title>
+
+		<link rel="stylesheet" href="{{ STATIC_URL }}lib/jPlayer/css/not.the.skin.css">
+		<link rel="stylesheet" href="{{ STATIC_URL }}lib/jPlayer/circle.skin/circle.player.css">
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}lib/jPlayer/js/jquery.transform2d.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}lib/jPlayer/js/jquery.grab.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}lib/jPlayer/js/jquery.jplayer.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}lib/jPlayer/js/mod.csstransforms.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}lib/jPlayer/js/circle.player.js"></script>
+
+		<script type="text/javascript">
+		$(document).ready(function(){
+
+			/*
+			 * Instance CirclePlayer inside jQuery doc ready
+			 *
+			 */
+
+			var myCirclePlayer = new CirclePlayer("#jquery_jplayer_1",
+			{
+				m4a: "{{ STATIC_URL }}music/{{filename}}"
+			}, {
+				cssSelectorAncestor: "#cp_container_1"
+			});
+
+		});
+
+		function setRating(rating) {
+			Dajaxice.mindfulapp.updaterating(success, {'listenId':{{listenId}}, 'rating':rating });
+		}
+		
+		function success() {
+			alert('Rated');
+		}
+
+		function finishSong() {
+			Dajaxice.mindfulapp.setFinishTime(redirect, {'listenId':{{listenId}}});
+		}
+
+		function redirect() {
+			location.href='http://localhost:8080/user/1/play';
+		}
+		</script>
+	</head>
+	<body style="text-align:center">
+
+		<!-- The jPlayer div must not be hidden. Keep it at the root of the body element to avoid any such problems. -->
+		<div id="jquery_jplayer_1" class="cp-jplayer"></div>
+
+		<div class="prototype-wrapper"> <!-- A wrapper to emulate use in a webpage and center align -->
+
+
+			<!-- The container for the interface can go where you want to display it. Show and hide it as you need. -->
+
+			<div id="cp_container_1" class="cp-container">
+				<div class="cp-buffer-holder"> <!-- .cp-gt50 only needed when buffer is > than 50% -->
+					<div class="cp-buffer-1"></div>
+					<div class="cp-buffer-2"></div>
+				</div>
+				<div class="cp-progress-holder"> <!-- .cp-gt50 only needed when progress is > than 50% -->
+					<div class="cp-progress-1"></div>
+					<div class="cp-progress-2"></div>
+				</div>
+				<div class="cp-circle-control"></div>
+				<ul class="cp-controls">
+					<li><a class="cp-play" tabindex="1">play</a></li>
+					<li><a class="cp-pause" style="display:none;" tabindex="1">pause</a></li> <!-- Needs the inline style here, or jQuery.show() uses display:inline instead of display:block -->
+				</ul>
+			</div>
+
+		</div>
+		{{filename}}
+
+
+		<div>
+			<span onclick="setRating(10)">Like</span><span onclick="setRating(0)">Dislike</span>
+		</div>
+	</body>
+</html>
+
