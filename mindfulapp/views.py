@@ -27,6 +27,9 @@ def carer(request, id):
 	carer = Carer.objects.get(pk=id)
 	return render(request, 'carer.html', {'carerid':id, 'users':carer.users.all})
 
+def view_user(request, carer_id, user_id):
+	return HttpResponse('Viewing user '+user_id);
+
 def login_user(request):
   if request.method != "POST":
     users = User.objects.all()
