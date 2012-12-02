@@ -36,6 +36,9 @@
 
 		function setRating(rating) {
 			Dajaxice.mindfulapp.updaterating(success, {'listenId':{{listenId}}, 'rating':rating });
+			if (rating == 0) {
+				finishSong();
+			}
 		}
 		
 		function success() {
