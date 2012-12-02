@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 
 from models import User, Carer, Listen, Observation
-from forms import ChooseUserForm
+from forms import ObservationForm
 from utils import *
 
 import sys
@@ -39,8 +39,22 @@ def view_user(request, carer_id, user_id):
 	).filter(
 			listen__in = listens
 	)
-	
-	return render(request, 'carerUserProfile.html', {'listens':listens, 'user':user, 'observations':observations})
+	return render(request, 'carerUserProfile.html', {'listens':listens, 'user':user, 'observations':observations, 'carerid':carer_id})
+
+def observation(request, carerid, listenid):
+	try:
+		observation = Observation.objects.get(carer_id = carerid, listen_id = listenid)	
+	except ObjectDoesNotExist:
+		observation = Observation(carer_id = carerid, listen_id = listenid)
+	if request.method == "POST":
+		form = ObservationForm(request.POST, instance = observation)
+		form.save()
+		return redirect('view_user', carerid, observation.listen.user.id);
+	else:
+		form = ObservationForm(instance = observation)
+		return render(request, 'observation.html', {'form':form})
+
+
 
 def login_user(request):
   if request.method != "POST":

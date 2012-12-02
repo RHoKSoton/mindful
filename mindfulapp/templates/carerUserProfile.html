@@ -26,7 +26,7 @@
 {{observation.carer_rating}}
 {% endif %}
 {% endfor %}
-<a href="">edit</a>
+<a href="{% url observation carerid listen.id %}">edit</a>
 </td>
 <td>
 {% for observation in observations %}
@@ -34,7 +34,7 @@
 {{observation.notes}}
 {% endif %}
 {% endfor %}
-<a href="">edit</a>
+<a href="{% url observation carerid listen.id %}">edit</a>
 </td>
 <td>{{listen.time_started}}</td>
 </tr>
