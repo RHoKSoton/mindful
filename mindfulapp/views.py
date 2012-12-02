@@ -2,8 +2,9 @@ from django.shortcuts import render_to_response, redirect, render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from random import choice
-from models import User, Carer, Song, Listen
+from models import User, Carer, Song, Listen, Observation
 from django.db.models import Avg
+from forms import ChooseUserForm
 from utils import *
 
 import sys
@@ -16,7 +17,7 @@ def landing(request):
 		if is_user(request):
 			return redirect('user', request.session['user'].id)
 		else:
-			return HttpResponse('You are logged in as a carer')
+			return redirect('carer', request.session['carer'].id)
 	else:
 		return redirect('login_user')
 
@@ -43,8 +44,23 @@ def user_play(request, id):
 	return render(request, 'user_play.html', {'filename':filename})
 
 def carer(request, id):
-	print id
-	return render_to_response('carer.html', '', RequestContext(request))
+	carer = Carer.objects.get(pk=id)
+	return render(request, 'carer.html', {'carerid':id, 'users':carer.users.all})
+
+def view_user(request, carer_id, user_id):
+	user = User.objects.get(pk=user_id)
+	listens = Listen.objects.filter(
+		user_id = user_id
+	).order_by(
+		'-added'
+	)
+	observations = Observation.objects.filter(
+			carer_id = carer_id
+	).filter(
+			listen__in = listens
+	)
+	
+	return render(request, 'carerUserProfile.html', {'listens':listens, 'user':user, 'observations':observations})
 
 def login_user(request):
   if request.method != "POST":
@@ -66,7 +82,7 @@ def login_carer(request):
 			carer = Carer.objects.get(email=email, password=pwd)
 			request.session['loggedIn'] = True
 			request.session['carer'] = carer
-			return HttpResponse('YOU WOULD NOW BE TAKEN TO THE CARER SCREEN')
+			return redirect('carer', carer.id)
 		except ObjectDoesNotExist:
 				  return render_to_response('carerLogin.html', {'noUserFound':True})
 	else:	
