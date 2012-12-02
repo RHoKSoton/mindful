@@ -1,10 +1,19 @@
-<html>
+{% extends "base.html" %}
+{% block userLogin %}
 
-<head>
-
-</head>
-
-<body>
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <div class="user-container">
+          <div class="row">
+            <div class="span">
+              {% for user in users %}
+              	<a href="play-music.html" ><img src="{{user.image}}" class="img-polaroid"></a>
+              {% endfor %}              
+            </div>
+          </div>
+        </div>
+      </form>
+{% endblock %}
 <a href="{% url login_carer %}">Carer Log In</a>
 <div id="leftColumn">
 <h1>Which user are you?</h1>
@@ -13,15 +22,9 @@
     <li>
       <form action="" method="post">
         <input type="hidden" name="id" value="{{user.id}}"/>
-        <input type="submit" value="{{user}}"/>
+        <input type="submit" value="{{user.image}}"/>
       </form>
     </li>
   {% endfor %}
 </ul>
 </div>
-<div id="rightColumn">
-
-</div>
-</body>
-
-</html>
