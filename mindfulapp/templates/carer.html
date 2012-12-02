@@ -1,11 +1,49 @@
+{% load dajaxice_templatetags %}
 <html>
 <head>
+{% dajaxice_js_import %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+function displayListeners(data){
+	var newData = "";
+	$(data).each(function(index, item){
+		var newRow = '<tr>'+'<td>'+item['id']+'</td>'+'<td>'+item['name']+'</td>'+'<td>'+item['song']+'</td>'+'</tr>';
+		newData += newRow;
+	});
+	$('#listenerTable tr').remove();
+	$('#listenerTable').append(newData);
+}
+function fetchListeners() {
+	Dajaxice.mindfulapp.getlisteners(displayListeners,{'carerid':{{carerid}} });
+}
+
+function visitUser() {
+	var val = $('select#chooseUser option:selected').val();
+	if (val != "") {
+		window.location=$('select#chooseUser option:selected').val();
+	}
+}
+</script>
 
 </head>
 
 <body>
 
-	I am a carer.
+<h1>Users That Are Listening Now</h1>
+<table id="listenerTable"></table>
+<h1>Find a user</h1>
+<select id="chooseUser">
+<option value="">Choose a person</option>
+{% for userIt in users %}
+<option value="{% url user userIt.id %}">{{userIt.name}}</option>
+{% endfor %}
+</select>
+<button value="GO" onClick="visitUser()">Visit</button>
 
+<h1>Recent History</h1>
+<script type="text/javascript">
+	fetchListeners();
+	setInterval(fetchListeners,1000*5);
+</script>
 </body>
 </html>

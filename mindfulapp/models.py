@@ -10,6 +10,9 @@ class User(models.Model):
 	added = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
+	def name(self):
+		return self.first_name + ' ' + self.last_name
+
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name
 

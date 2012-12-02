@@ -5,11 +5,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 admin.autodiscover()
 
+from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+dajaxice_autodiscover()
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'mindful.views.home', name='home'),
     url(r'^', include('mindfulapp.urls')),
-
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
